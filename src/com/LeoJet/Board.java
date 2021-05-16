@@ -1,13 +1,12 @@
 package com.LeoJet;
 
-import java.util.Arrays;
-
 import java.util.Random;
 
 class Cell
 {
     String state = "";
     boolean isCovered = false; // debug false.   should be set to true
+    boolean check = false; // this var indicates if a cell should be checked for uncovering
 }
 
 public class Board {
@@ -26,11 +25,17 @@ public class Board {
 
     private int[] userPosInit = new int[2];
 
+    // default
+
+    public final int[] EASY    = {8,  10};
+    public final int[] MEDIUM  = {14, 18};
+    public final int[] HARD    = {20, 24};
+
     // class functions
 
+    // constructor
     public Board(int rows, int columns) {
-        // Create the board given width and height
-        // test create array of objects
+        // Create the board and set to array of objects given width and height
         Grid = new Cell[rows][columns];
 
         // Assign each Grid index to a Cell object instance and set state to "X"
@@ -48,15 +53,13 @@ public class Board {
         gridY = Grid[0].length;
     }
 
-    private boolean setCellState(int x, int y, String state)
+    private void setCellState(int x, int y)
     {
         // check if out of bounds
         if((x >= 0 && x < gridX) && (y >= 0 && y < gridY))
         {
-            Grid[x][y].state = state;
-            return true;
+            Grid[x][y].state = "no mine";
         }
-        return false;
     }
 
     public void setUserPosInit(int[] userPosInit)   // set where the user clicked the board initially. note: no mines can be generated around the user initial position.
@@ -64,17 +67,17 @@ public class Board {
         this.userPosInit = userPosInit;
 
         // set that userPosInit spot and around cannot have a mine
-        setCellState(userPosInit[0], userPosInit[1], "no mine");
+        setCellState(userPosInit[0], userPosInit[1]);
 
         // set positions around
-        setCellState(userPosInit[0]-1,userPosInit[1]-1, "no mine");  // top left
-        setCellState(userPosInit[0]-1,   userPosInit[1],   "no mine");  // top
-        setCellState(userPosInit[0]-1,userPosInit[1]+1, "no mine");  // top right
-        setCellState(   userPosInit[0],  userPosInit[1]+1, "no mine");  // right
-        setCellState(userPosInit[0]+1,userPosInit[1]+1, "no mine");  // bottom right
-        setCellState(userPosInit[0]+1,   userPosInit[1],   "no mine");  // bottom
-        setCellState(userPosInit[0]+1,userPosInit[1]-1, "no mine");  // bottom left
-        setCellState(   userPosInit[0],  userPosInit[1]-1, "no mine");  // left
+        setCellState(userPosInit[0]-1,userPosInit[1]-1);  // top left
+        setCellState(userPosInit[0]-1,   userPosInit[1]);    // top
+        setCellState(userPosInit[0]-1,userPosInit[1]+1);  // top right
+        setCellState(   userPosInit[0],  userPosInit[1]+1);  // right
+        setCellState(userPosInit[0]+1,userPosInit[1]+1);  // bottom right
+        setCellState(userPosInit[0]+1,   userPosInit[1]);    // bottom
+        setCellState(userPosInit[0]+1,userPosInit[1]-1);  // bottom left
+        setCellState(   userPosInit[0],  userPosInit[1]-1);  // left
 
     }
 
@@ -93,7 +96,7 @@ public class Board {
         // set mines amount. Generate random integers in range min to max.
         int randMinesCount =  min + (rand.nextInt((max+1)-min));
 
-        int[][] RandomSpots = new int[randMinesCount][2];
+        int[][] RandomSpots = new int[randMinesCount][2]; // create array of positions
 
         // fill random spots array
         for(int i = 0; i < randMinesCount; i++)
@@ -172,15 +175,7 @@ public class Board {
     public void GenerateMines(){
 
         addRandomMines();
-        // debug print
-        //System.out.println("Grid before number placed: ");
-        //printBoard(Grid);
-
-        //System.out.println("Grid after number placed: ");
         addNumbers();
-
-        //printBoard(Grid);
-
 
     }
 
