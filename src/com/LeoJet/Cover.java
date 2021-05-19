@@ -11,4 +11,9 @@ public class Cover {
         // check around x and y
         // if found X or # covered then uncover and check around that spot for any X or # covered etc...
     }
+
+    public void initialUncover(int x, int y)
+    {
+
+    }
 }

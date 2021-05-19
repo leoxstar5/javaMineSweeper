@@ -27,9 +27,9 @@ public class Board {
 
     // default
 
-    public final int[] EASY    = {8,  10};
-    public final int[] MEDIUM  = {14, 18};
-    public final int[] HARD    = {20, 24};
+    public static final int[] EASY    = {8,  10};
+    public static final int[] MEDIUM  = {14, 18};
+    public static final int[] HARD    = {20, 24};
 
     // class functions
 
@@ -115,7 +115,7 @@ public class Board {
             }
         }
 
-        // Reset any cell state that's set to: no mine. since we already used the hint "no mine" and wont be using it later.
+        // Reset any cell state that's set to: no mine. since we already used the hint "no mine" and won't be using it later.
         for(Cell[] cells: Grid)
             for(Cell cell: cells)
                 if(cell.state.equals("no mine"))

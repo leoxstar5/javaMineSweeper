@@ -43,18 +43,22 @@ public class Main {
 
         board.printBoard(board.getBoard());
 */
-        Board board = new Board(10, 10);
+//        Board board = new Board(10, 10);
+//
+//        //Board.printBoard(board.getBoard());
+//
+//        int[] userPos = {1, 1};
+//
+//        board.setUserPosInit(userPos);
+//
+//        board.GenerateMines();
+//
+//        // print board
+//        Board.printBoard(board.getBoard());
 
-        //Board.printBoard(board.getBoard());
-
-        int[] userPos = {1, 1};
-
-        board.setUserPosInit(userPos);
-
-        board.GenerateMines();
-
-        // print board
-        Board.printBoard(board.getBoard());
+        // create user obj
+        User user = new User();
+        user.gameLoop();
 
     }
 }
