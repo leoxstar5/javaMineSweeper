@@ -1,6 +1,6 @@
 package com.LeoJet;
 
-public class Cover {
+public class Cover{
     public Cover(int[] UserPosInit)     // Constructor
     {
 

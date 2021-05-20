@@ -5,15 +5,17 @@ import java.util.Random;
 class Cell
 {
     String state = "";
-    boolean isCovered = false; // debug false.   should be set to true
+    boolean isCovered = true; // debug false.   should be set to true
     boolean check = false; // this var indicates if a cell should be checked for uncovering
+    boolean uncoverChecked = false;
+    boolean flagged = false;
 }
 
 public class Board {
 
     // class variables
 
-    private static Cell[][] Grid;   // NOTE: changed string[][] to Cell[][]
+    public static Cell[][] Grid;   // NOTE: changed string[][] to Cell[][]
 
     //private static Boolean[][] Cover;   // During play time this 2d array depicts which spots should be covered
 
@@ -23,7 +25,7 @@ public class Board {
 
     private int minesTotal = 0;
 
-    private int[] userPosInit = new int[2];
+    public int[] userPosInit = new int[2];
 
     // default
 
@@ -52,6 +54,7 @@ public class Board {
         gridX = Grid.length;
         gridY = Grid[0].length;
     }
+
 
     private void setCellState(int x, int y)
     {
@@ -179,11 +182,58 @@ public class Board {
 
     }
 
+    // Uncover
+    public void resetUncover()
+    {
+        for(int i = 0; i < Grid.length; i++)
+        {
+            for(int j = 0; j < Grid[0].length; j++)
+            {
+                if(Grid[i][j].uncoverChecked)
+                    Grid[i][j].uncoverChecked = false;
+            }
+        }
+    }
+
+    private void checkCell(int x, int y)
+    {
+        if((x >= 0 && x < gridX) && (y >= 0 && y < gridY))
+        {
+            // uncover
+            if(Character.isDigit(Grid[x][y].state.charAt(0)))
+                Grid[x][y].isCovered = false;
+            else if(Grid[x][y].state == "X")
+                if(!Grid[x][y].uncoverChecked)  // cell that has x was not yet checked for uncovering
+                    uncoverFromX(x, y); // recursion
+        }
+    }
+
+    public void uncoverFromX(int x, int y)   // check surrounding x if any numbers then uncover if x surrounding then use recursion
+    {
+        // check if out of bounds
+        if((x >= 0 && x < gridX) && (y >= 0 && y < gridY))
+        {
+            // uncover the cell that contains x (pos from in parameters)
+            Grid[x][y].isCovered = false;
+            Grid[x][y].uncoverChecked = true;
+
+            // check surrounding
+            checkCell(x-1, y-1);
+            checkCell(x-1, y);
+            checkCell(x-1, y+1);
+            checkCell(x, y+1);
+            checkCell(x+1, y+1);
+            checkCell(x+1, y);
+            checkCell(x+1, y-1);
+            checkCell(x, y-1);
+        }
+    }
+
     public static void printBoard(Cell[][] Board)    // TODO: figure out a way to print any type 2d array
     {
         for (Cell[] cells : Board) {
             for (Cell cell : cells) {
-                System.out.print((!cell.isCovered && !cell.state.equals("no mine") ? cell.state : " ") + "  ");
+                System.out.print((!cell.isCovered && !cell.state.equals("no mine") ? cell.state : (cell.flagged ? "f": "#")) + "  ");
             }
             System.out.println();
         }
@@ -191,4 +241,6 @@ public class Board {
 
     // Getter methods
     public Cell[][] getBoard() { return Grid; }
+
+    public int[] getBoardSize() { return new int[]{gridX, gridY}; }
 }

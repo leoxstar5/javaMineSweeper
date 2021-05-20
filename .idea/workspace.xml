@@ -5,11 +5,9 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/MineSweeper/com/LeoJet/Board.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/MineSweeper/com/LeoJet/Board.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/MineSweeper/com/LeoJet/Cell.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/MineSweeper/com/LeoJet/Cell.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/MineSweeper/com/LeoJet/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/MineSweeper/com/LeoJet/Main.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/MineSweeper/com/LeoJet/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/MineSweeper/com/LeoJet/User.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/LeoJet/Board.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/LeoJet/Board.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/LeoJet/Cover.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/LeoJet/Cover.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/LeoJet/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/LeoJet/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/LeoJet/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/LeoJet/User.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
