@@ -1,15 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="0f32b1e5-eb66-413e-8e1a-2c48b270bc96" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/MineSweeper/com/LeoJet/Board.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/MineSweeper/com/LeoJet/Board.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/MineSweeper/com/LeoJet/Cell.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/MineSweeper/com/LeoJet/Cell.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/MineSweeper/com/LeoJet/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/MineSweeper/com/LeoJet/User.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/LeoJet/Board.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/LeoJet/Board.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/LeoJet/Cover.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/LeoJet/Cover.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/LeoJet/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/LeoJet/User.java" afterDir="false" />
-    </list>
+    <list default="true" id="0f32b1e5-eb66-413e-8e1a-2c48b270bc96" name="Default Changelist" comment="Uncover operation works well. game loop has bugs." />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -69,6 +61,14 @@
       <option name="presentableId" value="Default" />
       <updated>1615840618056</updated>
     </task>
+    <task id="LOCAL-00001" summary="Uncover operation works well. game loop has bugs.">
+      <created>1621485749822</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1621485749822</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -82,5 +82,9 @@
       </map>
     </option>
     <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Uncover operation works well. game loop has bugs." />
+    <option name="LAST_COMMIT_MESSAGE" value="Uncover operation works well. game loop has bugs." />
   </component>
 </project>
