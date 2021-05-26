@@ -6,7 +6,6 @@ class Cell
 {
     String state = "";
     boolean isCovered = true; // debug false.   should be set to true
-    boolean check = false; // this var indicates if a cell should be checked for uncovering
     boolean uncoverChecked = false;
     boolean flagged = false;
 }
@@ -15,9 +14,7 @@ public class Board {
 
     // class variables
 
-    public static Cell[][] Grid;   // NOTE: changed string[][] to Cell[][]
-
-    //private static Boolean[][] Cover;   // During play time this 2d array depicts which spots should be covered
+    public static Cell[][] Grid;
 
     private int gridX, gridY;
 
@@ -25,7 +22,11 @@ public class Board {
 
     private int minesTotal = 0;
 
+    public int flags;
+
     public int[] userPosInit = new int[2];
+
+    private boolean userInitSet = false;
 
     // default
 
@@ -51,8 +52,8 @@ public class Board {
         }
 
         // assign class variables
-        gridX = Grid.length;
-        gridY = Grid[0].length;
+        this.gridX = Grid.length;
+        this.gridY = Grid[0].length;
     }
 
 
@@ -67,6 +68,8 @@ public class Board {
 
     public void setUserPosInit(int[] userPosInit)   // set where the user clicked the board initially. note: no mines can be generated around the user initial position.
     {
+        this.userInitSet = true;
+
         this.userPosInit = userPosInit;
 
         // set that userPosInit spot and around cannot have a mine
@@ -85,19 +88,18 @@ public class Board {
     }
 
     private void addRandomMines(){  // note: must call after calling setUserPosInit()  this function (addRandomMines) requires userPosInit to be set.
-        // TODO: implement userPosInit when creating the mines.
 
         int boardCells = Grid.length * Grid[0].length;  // total number of cells in Grid
 
         // min and max for random amount of mines. depends on cell count of Grid
-        int min = (int)(boardCells/5);
-        int max = (int)(boardCells/4);
+        int min = boardCells/5;
+        int max = boardCells/4;
 
         // create instance of Random class
         Random rand = new Random();
 
         // set mines amount. Generate random integers in range min to max.
-        int randMinesCount =  min + (rand.nextInt((max+1)-min));
+        int randMinesCount =  min + (rand.nextInt((max+1)-min));    // rand.nextInt(n) returns random number from 0 to n
 
         int[][] RandomSpots = new int[randMinesCount][2]; // create array of positions
 
@@ -128,11 +130,11 @@ public class Board {
         for(Cell[] cells: Grid)
             for(Cell cell: cells)
                 if(cell.state.equals("M"))
-                    minesTotal++;
+                    this.minesTotal++;
 
-        // debug print mines count
-        System.out.println("total mines: " + minesTotal);
+        this.flags = this.minesTotal;   // set flags (flags left to put on board) to total mines
     }
+
 
     private void checkIfMine(int x, int y)
     {
@@ -150,7 +152,6 @@ public class Board {
         {
             for(int j = 0; j < gridY; j++)
             {
-
                 // Spot is not a mine (can't add numbers in a mine)
                 if(!Grid[i][j].state.equals("M"))
                 {
@@ -167,12 +168,10 @@ public class Board {
                     if(mines > 0)
                         Grid[i][j].state = Integer.toString(mines);
                 }
-
                 // Reset for next iteration
                 mines = 0;
             }
         }
-
     }
 
     public void GenerateMines(){
@@ -185,35 +184,34 @@ public class Board {
     // Uncover
     public void resetUncover()
     {
-        for(int i = 0; i < Grid.length; i++)
+        for(Cell[] cells: Grid)
         {
-            for(int j = 0; j < Grid[0].length; j++)
+            for(Cell cell: cells)
             {
-                if(Grid[i][j].uncoverChecked)
-                    Grid[i][j].uncoverChecked = false;
+                cell.uncoverChecked = false;
             }
         }
     }
 
     private void checkCell(int x, int y)
     {
+        // check if not out of bounds
         if((x >= 0 && x < gridX) && (y >= 0 && y < gridY))
         {
             // uncover
-            if(Character.isDigit(Grid[x][y].state.charAt(0)))
+            if(Character.isDigit(Grid[x][y].state.charAt(0))) // uncover cell that has a number
                 Grid[x][y].isCovered = false;
-            else if(Grid[x][y].state == "X")
-                if(!Grid[x][y].uncoverChecked)  // cell that has x was not yet checked for uncovering
-                    uncoverFromX(x, y); // recursion
+            else if(Grid[x][y].state.equals("X") && !Grid[x][y].uncoverChecked)   // cell that has x was not yet checked for uncovering
+                uncoverFromX(x, y); // recursion (indirect recursion; called from another function)
         }
     }
 
     public void uncoverFromX(int x, int y)   // check surrounding x if any numbers then uncover if x surrounding then use recursion
     {
-        // check if out of bounds
+        // check if not out of bounds
         if((x >= 0 && x < gridX) && (y >= 0 && y < gridY))
         {
-            // uncover the cell that contains x (pos from in parameters)
+            // uncover the cell that contains x (pos from parameters)
             Grid[x][y].isCovered = false;
             Grid[x][y].uncoverChecked = true;
 
@@ -229,18 +227,77 @@ public class Board {
         }
     }
 
-    public static void printBoard(Cell[][] Board)    // TODO: figure out a way to print any type 2d array
+    // check if the user won
+    public boolean checkIfUserWon()
     {
-        for (Cell[] cells : Board) {
+        int cellsCorrect = 0;
+
+        for(Cell[] cells: Grid)
+        {
+            for(Cell cell: cells)
+            {
+                if(cell.flagged && cell.state.equals("M")){
+                    cellsCorrect++;
+                }
+                if(!cell.state.equals("M") && !cell.isCovered)
+                    cellsCorrect++;
+            }
+        }
+
+        // return if user won
+        return cellsCorrect == gridX * gridY;
+    }
+
+    public void printBoard()
+    {
+        int xCount = this.gridX;
+
+        int yCount = 1;
+
+        // print flags left
+        if(this.userInitSet)
+            System.out.println("\nflags left: " + this.flags);
+
+        // border
+        for(int i = 0; i < Grid[0].length * 3; i++) System.out.print("=");
+
+        // print cells
+        System.out.println("");
+        for (Cell[] cells : Grid) {
             for (Cell cell : cells) {
                 System.out.print((!cell.isCovered && !cell.state.equals("no mine") ? cell.state : (cell.flagged ? "f": "#")) + "  ");
             }
+            System.out.println("|" + xCount--);
+        }
+
+        // Horizontal indicator
+        // border
+        for(int i = 0; i < Grid[0].length * 3; i++) System.out.print("=");
+        System.out.println();
+
+        // indicator
+        for (int i = 0; i < Grid[0].length; i++)
+        {
+            System.out.print((yCount++) + "  ");
+            if(yCount > 9) yCount = 0;    // reset counter. otherwise number misplaces next numbers on horizontal indicator compared to board.
+        }
+        System.out.println();
+    }
+
+    public void printBoardKey()
+    {
+        System.out.println("\nBOARD KEY!!!");
+        for(Cell[] cells: Grid)
+        {
+            for(Cell cell: cells)
+            {
+                System.out.print(cell.state + "  ");
+            }
             System.out.println();
         }
+        System.out.println("BOARD KEY!!!");
     }
 
     // Getter methods
-    public Cell[][] getBoard() { return Grid; }
-
     public int[] getBoardSize() { return new int[]{gridX, gridY}; }
 }

@@ -24,32 +24,32 @@ public class User
 
         switch (Check)
         {
-            case "int":
+            case "int" -> {
                 // check if input string contains only numbers.
 
                 for (int i = 0; i < input.length(); i++)
                 {
-                    if(!(Character.isDigit(input.charAt(i))))
+                    if (!(Character.isDigit(input.charAt(i))))
                     {
                         allValid = false;
                         break;
                     }
                 }
-
                 return allValid;
-
-            case "String":
+            }
+            case "String" -> {
 
                 // check if input string contains only letters.
                 for (int i = 0; i < input.length(); i++)
                 {
-                    if(!(Character.isLetter(input.charAt(i))))
+                    if (!(Character.isLetter(input.charAt(i))))
                     {
                         allValid = false;
                         break;
                     }
                 }
                 return allValid;
+            }
         }
         return false;
     }
@@ -61,13 +61,12 @@ public class User
         int[] sizeChoice;
         String userResponse;
 
+        // Create Scanner obj for input
         Scanner scanner = new Scanner(System.in);
 
         // introduce game to user
         System.out.println();
-        System.out.println("=======================================\n====\tWelcome to Minesweeper!    ====\n=======================================\n> Press \"q\" or \"quit\" anytime to quit");
-
-        // explain game mechanics
+        System.out.println("=======================================\n====\tWelcome to Minesweeper!    ====\n=======================================\n");
 
 
         // let user choose game difficulty (easy, medium, hard, or custom). for GUI purposes show amount of cells to flag and show timer (advanced save best time in category: easy, medium, hard, or custom)
@@ -77,22 +76,21 @@ public class User
 
         switch (userChoice)
         {
-            case 1:
+            case 1 -> {
                 this.userSizeChoice = Board.EASY;
                 System.out.println("board size set to: " + userSizeChoice[0] + " by " + userSizeChoice[1]);
-                break;
-            case 2:
+            }
+            case 2 -> {
                 this.userSizeChoice = Board.MEDIUM;
                 System.out.println("board size set to: " + userSizeChoice[0] + " by " + userSizeChoice[1]);
-                break;
-            case 3:
+            }
+            case 3 -> {
                 this.userSizeChoice = Board.HARD;
                 System.out.println("board size set to: " + userSizeChoice[0] + " by " + userSizeChoice[1]);
-                break;
-            case 4:
+            }
+            case 4 -> {
                 boolean validInput = false;
                 String[] customInput = new String[2];
-
                 System.out.println("You chose option 4. Enter a custom size for the board.");
                 while (!validInput)
                 {
@@ -105,34 +103,30 @@ public class User
                     customInput[0] = userResponse;
 
                     // check validity
-                    if(isValidInput(customInput[0], "int") && (isValidInput(customInput[1], "int")))
+                    if (isValidInput(customInput[0], "int") && (isValidInput(customInput[1], "int")))
                     {
                         // convert to int
                         sizeChoice = new int[]{(Integer.parseInt(customInput[0])), (Integer.parseInt(customInput[1]))};
 
                         // further check validity
-                        if(sizeChoice[0] > 3 && sizeChoice[1] > 3)
+                        if (sizeChoice[0] > 3 && sizeChoice[1] > 3)
                         {
                             // set user choice
                             this.userSizeChoice = new int[]{sizeChoice[0], sizeChoice[1]};
                             System.out.println("board size set to: " + userSizeChoice[0] + " by " + userSizeChoice[1]);
                             validInput = true;
-                        }else
+                        } else
                         {
-                            System.out.println("ERROR: width and height must be greater than 3!");
+                            System.out.println("ERROR: width and height must be greater than 3! This is in order to be able to generate mines.");// since mines are not generated around userInitPos
                         }
-                    }else
+                    } else
                     {
                         System.out.println("ERROR: width and height must contain only numbers");
                     }
                 }
-                break;
-            default:
-                System.out.println("ERROR: You did not enter any of the options!");
-                break;
+            }
+            default -> System.out.println("ERROR: You did not enter any of the options!");
         }
-
-        // when user types start then start the game loop
     }
 
     private int[] getUserPos(boolean initial, Board theBoard)
@@ -158,14 +152,14 @@ public class User
                 if(isValidInput(userInput[0], "int") && isValidInput(userInput[1], "int"))
                 {
                     // covert
-                    userPos[0] = Integer.parseInt(userInput[0]);
-                    userPos[1] = Integer.parseInt(userInput[1]);
+                    userPos[0] = Integer.parseInt(userInput[0]) -1; // -1 since index is 0 based
+                    userPos[1] = Integer.parseInt(userInput[1]) -1;
 
                     // check if valid number range
                     if((userPos[0] >= 0 && userPos[0] < theBoard.getBoardSize()[0]) && (userPos[1] >= 0 && userPos[1] < theBoard.getBoardSize()[1]))
                         valid = true;
                     else
-                        System.out.println("Error: x and y must be within board size range!");
+                        System.out.println("Error: x and y must be within board size range!!!");
                 }else
                     System.out.println("Error: x and y must be a number!");
             }
@@ -174,8 +168,9 @@ public class User
             while (!valid)
             {
                 // ask user to enter position on board to select and perform an action
-                System.out.print("Enter command(\"d\" for dig, \"f\" for flag) followed by x pos and y. e.g. command: d, x: 3, y: 8\ncommand: ");
-                userCommand = scanner.next();
+                System.out.println("Enter command(\"d\" for dig, \"f\" for flag) followed by position (x and y).");
+                System.out.print("command: ");
+                userCommand = scanner.nextLine();
                 System.out.print("x: ");
                 userInput[0] = scanner.next();
                 System.out.print("y: ");
@@ -185,8 +180,8 @@ public class User
                 if((isValidInput(userInput[0], "int") && isValidInput(userInput[1], "int")) && (isValidInput(userCommand, "String")))
                 {
                     // convert
-                    userPos[0] = Integer.parseInt(userInput[0]);
-                    userPos[1] = Integer.parseInt(userInput[1]);
+                    userPos[0] = Integer.parseInt(userInput[0]) - 1;
+                    userPos[1] = Integer.parseInt(userInput[1]) - 1;
 
                     // check if valid number range
                     if((userPos[0] >= 0 && userPos[0] < theBoard.getBoardSize()[0]) && (userPos[1] >= 0 && userPos[1] < theBoard.getBoardSize()[1]))
@@ -201,7 +196,50 @@ public class User
                     System.out.println("Error: command must be a string, and positions must only contain numbers");
             }
         }
+
+        // reverse x and y for using in program (x and y are the opposite for a regular user).
+        // reverse arr. since array for computers y(x in computers) starts from the top->bottom. in math it's bottom->top
+        int revArrLen = theBoard.getBoardSize()[0];
+        int[] revGridX = new int[revArrLen];
+
+        int counter = 0;
+        for(int i = revArrLen-1; i >= 0; i--)
+        {
+            revGridX[counter] = i;
+            counter++;
+        }
+
+        userPos[1] = revGridX[userPos[1]];
+
+        userPos = new int[]{userPos[1], userPos[0]};
         return userPos;
+    }
+
+    private boolean promptReplay()
+    {
+        // create scanner object
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Would you like to play again? (y/n)\n: ");
+        String userResponse = scanner.next();
+        System.out.println();
+
+        if(userResponse.equals("y") || userResponse.equals("yes"))
+        {
+            // reset game over
+            this.gameOver = false;
+            return true;
+        }
+        else if(userResponse.equals("n") || userResponse.equals("no"))
+        {
+            System.out.println("Thank you for playing.");
+            return false;
+        }
+        else
+        {
+            System.out.println("You did not enter: \"y\", \"yes\", \"n\", or \"no\"");
+            return promptReplay(); // re prompt until user types correct command. recursion
+        }
     }
 
     public void gameLoop()
@@ -218,15 +256,12 @@ public class User
             Board board = new Board(userSizeChoice[0], userSizeChoice[1]);
 
             // show board (first time all cells are hidden until user clicked)
-            // debug we are skipping TODO: Add in.
-            Board.printBoard(board.getBoard());
+            board.printBoard();
 
             // user selects a position of board. call setUserPosInit() with user selected position
-            ///int[] userPosInit = new int[]{2, 10};
-            //board.setUserPosInit(userPosInit);
             board.setUserPosInit(getUserPos(true, board));
 
-            // board: generate mines, cover board, uncover from last selected cell
+            // board: generate mines
             board.GenerateMines();
             
             // uncover
@@ -234,51 +269,84 @@ public class User
             board.resetUncover(); // reset for next uncover operation
 
             // show board
-            Board.printBoard(board.getBoard());
+            board.printBoard();
 
+            // to track user choice in each loop
+            int[] userPosChoice;
 
             // game loop
-            int[] userPosChoice;
             while(!this.gameOver)
             {
                 // get input
                 userPosChoice = getUserPos(false, board);
 
-                if(this.userCommand == "f")
+                switch (this.userCommand)
                 {
-                    // TODO: implement un flag
-                    // flag cell of grid
-                    Board.Grid[userPosChoice[0]][userPosChoice[1]].flagged = true;
-                }
-                else if(this.userCommand == "u")// un flag
-                {
-                    Board.Grid[userPosChoice[0]][userPosChoice[1]].flagged = false;
-                }
-                else if(this.userCommand == "d")
-                {
-                    if(Board.Grid[userPosChoice[0]][userPosChoice[1]].state == "M")
-                    {
-                        this.gameOver = true;
-                        this.userWon = false;
-                        break;
-                    }else   // the grid positions state holds a number or empty spot
-                        Board.Grid[userPosChoice[0]][userPosChoice[1]].isCovered = false;
-                }
+                    case "f":
+                        // flag cell of grid
+                        if (Board.Grid[userPosChoice[0]][userPosChoice[1]].isCovered && !Board.Grid[userPosChoice[0]][userPosChoice[1]].flagged)    // cell is covered and not flagged
+                        {
+                            Board.Grid[userPosChoice[0]][userPosChoice[1]].flagged = true;
+                            board.flags--;
+                        } else
+                        {
+                            System.out.println("Error: you can't flag a spot that is uncovered or already flagged!");
+                        }
 
-                // uncover from
-                if(Board.Grid[userPosChoice[0]][userPosChoice[1]].state == "X")
-                {
-                    board.uncoverFromX(userPosChoice[0], userPosChoice[1]);
-                    board.resetUncover();
+                        break;
+                    case "u":
+                        // un flag
+
+                        // check that the position contains a flag.
+                        if (Board.Grid[userPosChoice[0]][userPosChoice[1]].flagged = true)
+                        {
+                            Board.Grid[userPosChoice[0]][userPosChoice[1]].flagged = false;
+                            board.flags++;
+                        } else
+                        {
+                            System.out.println("Error: You can't un flag a spot that has no flag"); // note: for gui there is no option to un flag in this case.
+                        }
+
+                        break;
+                    case "d":
+                        // dig cell (uncover cell)
+
+                        if (Board.Grid[userPosChoice[0]][userPosChoice[1]].state.equals("M"))
+                        {
+                            System.out.println("You lost, you dug a mine!!!");
+                            board.printBoardKey();
+                            this.gameOver = true;
+                            this.userWon = false;
+                            break;
+                        } else if (Board.Grid[userPosChoice[0]][userPosChoice[1]].state.equals("X"))   // the grid positions state holds an empty spot
+                        {
+                            // uncover from
+                            board.uncoverFromX(userPosChoice[0], userPosChoice[1]);
+                            board.resetUncover();
+                        } else    // position on board is a number
+                        {
+                            Board.Grid[userPosChoice[0]][userPosChoice[1]].isCovered = false;
+                        }
+                        break;
+                    default:
+                        System.out.println("Nothing happens since you entered something other than: \"f\", \"u\", or \"d\" as the command!");
+                        break;
                 }
 
                 // print board
-                Board.printBoard(board.getBoard());
+                if(!this.gameOver)  // We don't want to print the board for next user input if game over
+                    board.printBoard();
+
+                if (board.checkIfUserWon())
+                {
+                    System.out.println("You won!");
+                    this.gameOver = true;
+                    break;
+                }
             }
 
-            break;
+            // Ask user if they want to play again.
+            if(!promptReplay()) break;
         }
-
-
     }
 }
