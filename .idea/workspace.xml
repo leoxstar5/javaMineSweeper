@@ -1,17 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="0f32b1e5-eb66-413e-8e1a-2c48b270bc96" name="Default Changelist" comment="Uncover operation works well. game loop has bugs.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/MineSweeper/com/LeoJet/Board.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/MineSweeper/com/LeoJet/Board.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/MineSweeper/com/LeoJet/Cell.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/MineSweeper/com/LeoJet/Cell.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/MineSweeper/com/LeoJet/Cover.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/MineSweeper/com/LeoJet/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/MineSweeper/com/LeoJet/Main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/MineSweeper/com/LeoJet/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/MineSweeper/com/LeoJet/User.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/LeoJet/Board.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/LeoJet/Board.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/LeoJet/Cover.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/LeoJet/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/LeoJet/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/LeoJet/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/LeoJet/User.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -36,28 +30,25 @@
       <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
     </file-type-list>
   </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
   <component name="ProjectId" id="1poDahatUCqoI9ozX1xWcqpXiYY" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">
-    <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="Downloaded.Files.Path.Enabled" value="false" />
-    <property name="Repository.Attach.Annotations" value="false" />
-    <property name="Repository.Attach.JavaDocs" value="false" />
-    <property name="Repository.Attach.Sources" value="false" />
-    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
-    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="TODO_SCOPE" value="All Places" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../practice/GUI" />
-    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
-  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "last_opened_file_path": "C:/Dev/Java/Projects/JavaMineSweeper"
+  }
+}]]></component>
   <component name="RunManager">
     <configuration name="Main" type="Application" factoryName="Application">
+      <option name="ALTERNATIVE_JRE_PATH" value="$PROJECT_DIR$/../../../../Program Files/Java/jdk-17.0.3" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
       <option name="MAIN_CLASS_NAME" value="com.LeoJet.Main" />
       <module name="MineSweeper" />
-      <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
       <RunnerSettings RunnerId="Run" />
       <ConfigurationWrapper RunnerId="Run" />
       <method v="2">
@@ -94,7 +85,6 @@
         </entry>
       </map>
     </option>
-    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Uncover operation works well. game loop has bugs." />

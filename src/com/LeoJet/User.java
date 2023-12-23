@@ -7,14 +7,11 @@ public class User
     // class variables
     private String userCommand;
     private int[] userSizeChoice;
-    private boolean quit;
     private boolean gameOver;
-    private boolean userWon;
 
     public User()
     {
         this.userSizeChoice = new int[2];
-        this.quit = false;
         this.gameOver = false;
     }
 
@@ -244,11 +241,10 @@ public class User
 
     public void gameLoop()
     {
-
-        while (!quit)
+        do
         {
             // do once per game loop
-            
+
             // get input
             getUserInput();
 
@@ -263,7 +259,7 @@ public class User
 
             // board: generate mines
             board.GenerateMines();
-            
+
             // uncover
             board.uncoverFromX(board.userPosInit[0], board.userPosInit[1]);
             board.resetUncover(); // reset for next uncover operation
@@ -275,14 +271,15 @@ public class User
             int[] userPosChoice;
 
             // game loop
-            while(!this.gameOver)
+            while (!this.gameOver)
             {
                 // get input
                 userPosChoice = getUserPos(false, board);
 
                 switch (this.userCommand)
                 {
-                    case "f":
+                    case "f" ->
+                    {
                         // flag cell of grid
                         if (Board.Grid[userPosChoice[0]][userPosChoice[1]].isCovered && !Board.Grid[userPosChoice[0]][userPosChoice[1]].flagged)    // cell is covered and not flagged
                         {
@@ -292,13 +289,13 @@ public class User
                         {
                             System.out.println("Error: you can't flag a spot that is uncovered or already flagged!");
                         }
-
-                        break;
-                    case "u":
+                    }
+                    case "u" ->
+                    {
                         // un flag
 
                         // check that the position contains a flag.
-                        if (Board.Grid[userPosChoice[0]][userPosChoice[1]].flagged = true)
+                        if (Board.Grid[userPosChoice[0]][userPosChoice[1]].flagged)
                         {
                             Board.Grid[userPosChoice[0]][userPosChoice[1]].flagged = false;
                             board.flags++;
@@ -306,9 +303,9 @@ public class User
                         {
                             System.out.println("Error: You can't un flag a spot that has no flag"); // note: for gui there is no option to un flag in this case.
                         }
-
-                        break;
-                    case "d":
+                    }
+                    case "d" ->
+                    {
                         // dig cell (uncover cell)
 
                         if (Board.Grid[userPosChoice[0]][userPosChoice[1]].state.equals("M"))
@@ -316,8 +313,6 @@ public class User
                             System.out.println("You lost, you dug a mine!!!");
                             board.printBoardKey();
                             this.gameOver = true;
-                            this.userWon = false;
-                            break;
                         } else if (Board.Grid[userPosChoice[0]][userPosChoice[1]].state.equals("X"))   // the grid positions state holds an empty spot
                         {
                             // uncover from
@@ -327,14 +322,13 @@ public class User
                         {
                             Board.Grid[userPosChoice[0]][userPosChoice[1]].isCovered = false;
                         }
-                        break;
-                    default:
-                        System.out.println("Nothing happens since you entered something other than: \"f\", \"u\", or \"d\" as the command!");
-                        break;
+                    }
+                    default ->
+                            System.out.println("Nothing happens since you entered something other than: \"f\", \"u\", or \"d\" as the command!");
                 }
 
                 // print board
-                if(!this.gameOver)  // We don't want to print the board for next user input if game over
+                if (!this.gameOver)  // We don't want to print the board for next user input if game over
                     board.printBoard();
 
                 if (board.checkIfUserWon())
@@ -344,9 +338,6 @@ public class User
                     break;
                 }
             }
-
-            // Ask user if they want to play again.
-            if(!promptReplay()) break;
-        }
+        } while (promptReplay()); // Ask user if they want to play again.
     }
 }

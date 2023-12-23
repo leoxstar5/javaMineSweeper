@@ -11,12 +11,9 @@ class Cell
 }
 
 public class Board {
-
-    // class variables
-
     public static Cell[][] Grid;
 
-    private int gridX, gridY;
+    private final int gridX, gridY;
 
     private int mines = 0;
 
@@ -29,12 +26,9 @@ public class Board {
     private boolean userInitSet = false;
 
     // default
-
     public static final int[] EASY    = {8,  10};
     public static final int[] MEDIUM  = {14, 18};
     public static final int[] HARD    = {20, 24};
-
-    // class functions
 
     // constructor
     public Board(int rows, int columns) {
@@ -262,7 +256,7 @@ public class Board {
         for(int i = 0; i < Grid[0].length * 3; i++) System.out.print("=");
 
         // print cells
-        System.out.println("");
+        System.out.println();
         for (Cell[] cells : Grid) {
             for (Cell cell : cells) {
                 System.out.print((!cell.isCovered && !cell.state.equals("no mine") ? cell.state : (cell.flagged ? "f": "#")) + "  ");
